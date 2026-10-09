@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soumo's Classroom — Premium Online Learning Platform</title>
+<meta name="description" content="Master in-demand skills with Soumo's Classroom. Learn MS Office, Web Development, Programming, and Accounting with expert guidance.">
+<meta name="theme-color" content="#07070d">
+
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%236366f1'/><stop offset='1' stop-color='%23ec4899'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='70' font-family='Georgia,serif' font-size='48' font-weight='bold' text-anchor='middle' fill='white'>SC</text></svg>">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="cursor-dot" data-cursor-dot></div>
+<div class="cursor-outline" data-cursor-outline></div>
+<div class="scroll-progress-bar" id="scroll-progress"></div>
+
+<canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+<div class="bg-canvas" aria-hidden="true">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+    <div class="grid-overlay"></div>
+    <canvas id="heroCanvas"></canvas>
+    <div class="mouse-glow" id="mouseGlow"></div>
+</div>
+
+<div id="loader">
+  <div class="loader-logo"><img src="assets/logo.png" alt="Soumo's Classroom" class="w-24 h-24 object-contain" onerror="this.style.display='none'"></div>
+  <div class="loader-title">Soumo's Classroom</div>
+  <div class="loader-sub">Crafting Futures, One Skill at a Time</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+  <div class="loader-pct" id="loaderPct">0%</div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="container mx-auto px-4 sm:px-6 flex items-center justify-between">
+    <a href="#home" class="nav-logo">
+      <img src="assets/logo.png" alt="Soumo's Classroom Logo" class="nav-logo-icon" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%236366f1%22/><stop offset=%221%22 stop-color=%22%23ec4899%22/></linearGradient></defs><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22url(%23g)%22/><text x=%2250%22 y=%2270%22 font-family=%22Georgia,serif%22 font-size=%2248%22 font-weight=%22bold%22 text-anchor=%22middle%22 fill=%22white%22>SC</text></svg>';">
+      <div>
+        <div class="nav-logo-text">Soumo's <span>Classroom</span></div>
+        <div class="nav-logo-sub">Premium Online Learning</div>
+      </div>
+    </a>
+    
+    <div class="hidden lg:flex items-center gap-1">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <div class="courses-wrapper relative" id="coursesWrapper">
+        <a href="#courses" class="nav-link flex items-center gap-1" id="coursesNavToggle">Courses <i class="fas fa-chevron-down text-xs ml-0.5"></i></a>
+        <div class="courses-dropdown">
+          <div class="dropdown-category"><h4>Office Applications</h4><div class="dropdown-course" data-course="ms-word"><i class="fas fa-file-word"></i> Microsoft Word</div><div class="dropdown-course" data-course="ms-excel"><i class="fas fa-file-excel"></i> Microsoft Excel</div></div>
+          <div class="dropdown-category"><h4>Web Development</h4><div class="dropdown-course" data-course="html"><i class="fab fa-html5"></i> HTML</div><div class="dropdown-course" data-course="css"><i class="fab fa-css3-alt"></i> CSS</div><div class="dropdown-course" data-course="javascript"><i class="fab fa-js"></i> JavaScript</div></div>
+          <div class="dropdown-category"><h4>Programming & Accounting</h4><div class="dropdown-course" data-course="c"><i class="fas fa-code"></i> C Programming</div><div class="dropdown-course" data-course="cpp"><i class="fas fa-code"></i> C++ Programming</div><div class="dropdown-course" data-course="python"><i class="fab fa-python"></i> Python</div><div class="dropdown-course" data-course="tally"><i class="fas fa-calculator"></i> Tally Prime with GST</div></div>
+        </div>
+      </div>
+      <a href="#why-us" class="nav-link">Why Us</a>
+      <a href="#testimonials" class="nav-link">Reviews</a>
+      <a href="#registration" class="nav-link">Registration</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+      <a href="#registration" class="btn-primary hidden lg:inline-flex magnetic"><i class="fas fa-user-graduate"></i> Enroll Now</a>
+      <button class="mobile-toggle lg:hidden" id="mobileToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close-btn" id="mobileClose"><i class="fas fa-times"></i></button>
+  <a href="#home" class="mobile-link">Home</a>
+  <a href="#about" class="mobile-link">About</a>
+  <div class="mobile-link flex items-center justify-between" id="mobileCoursesToggle">Courses <i class="fas fa-chevron-down transition-transform"></i></div>
+  <div class="mobile-courses-list" id="mobileCoursesList"></div>
+  <a href="#why-us" class="mobile-link">Why Us</a>
+  <a href="#testimonials" class="mobile-link">Reviews</a>
+  <a href="#registration" class="mobile-link">Registration</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#registration" class="btn-primary w-full justify-center mt-6"><i class="fas fa-user-graduate"></i> Enroll Now</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="container mx-auto px-4 sm:px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div class="hero-content text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+        <div class="hero-badge reveal active"><span class="dot"></span> Top Ranked Online Learning Platform of 2026</div>
+        <h1 class="hero-title reveal active reveal-delay-1">Elevate Your Tech Skills To <span class="gradient-text">Expert Level</span></h1>
+        
+        <div class="hero-typewriter reveal active reveal-delay-2">
+          <span class="hero-typewriter-text">We will learn </span>
+          <span class="gradient-text font-bold" id="typedText"></span>
+          <span class="hero-cursor">|</span>
+        </div>
+        
+        <p class="hero-sub reveal active reveal-delay-3">Don't just learn — master the skills that top companies are hiring for. From advanced programming to professional accounting, Soumo's Classroom provides a premium, hands-on learning experience tailored for your success.</p>
+        <div class="flex flex-wrap justify-center lg:justify-start gap-4 reveal active reveal-delay-4">
+          <a href="#courses" class="btn-primary magnetic"><i class="fas fa-rocket"></i> Explore Courses</a>
+          <a href="#registration" class="btn-outline magnetic"><i class="fas fa-user-plus"></i> Register Now</a>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center items-center reveal active reveal-delay-2">
+        <div class="hero-logo-container">
+          <div class="hero-logo-glow"></div>
+          <img src="assets/logo.png" alt="Soumo's Classroom Logo" class="hero-logo-img" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats reveal active reveal-delay-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-10 md:mt-12 pt-8 border-t border-[var(--border)] max-w-4xl mx-auto lg:mx-0">
+      <div class="text-center"><div class="stat-value" data-count="200" data-suffix="+">0</div><div class="stat-label">Students Enrolled</div></div>
+      <div class="text-center"><div class="stat-value" data-count="9">0</div><div class="stat-label">Expert Courses</div></div>
+      <div class="text-center"><div class="stat-value" data-count="4.9" data-suffix="/5">0</div><div class="stat-label">Average Rating</div></div>
+      <div class="text-center"><div class="stat-value" data-count="2" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator hidden md:flex"><span>Scroll</span><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<section class="section" id="about">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16">
+      <div class="reveal flex justify-center">
+        <div class="about-image-wrap">
+          <div class="about-image-bg"></div>
+          <img src="assets/Soumo's Classroom.png" alt="Soumo's Picture" class="about-image">
+          <div class="about-image-experience"><span class="exp-number">2+</span><span class="exp-text">Years of Teaching</span></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="section-tag"><i class="fas fa-award"></i> About Me</div>
+        <h2 class="section-title">Meet <span class="gradient-text">Soumodip</span>, Your Mentor</h2>
+        <p class="section-sub mb-6">Hi, I'm Soumodip. With over 2 years of teaching experience, I've crafted a curriculum that blends theoretical knowledge with practical application. My mission is to bridge the gap between ambition and achievement by providing accessible, high-quality technical education.</p>
+        <p class="text-[var(--fg-muted)] mb-8 leading-relaxed">Whether you're a beginner taking your first steps in technology or a professional looking to upskill, my courses are designed to meet you where you are. I focus on hands-on projects and real-world applications so you can build a portfolio you can be proud of.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="about-mini-stat"><i class="fas fa-user-graduate"></i><div><h4>200+</h4><p>Students Mentored</p></div></div>
+          <div class="about-mini-stat"><i class="fas fa-project-diagram"></i><div><h4>25+</h4><p>Real Projects Covered</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why-us">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-star"></i> Why Choose Us</div>
+      <h2 class="section-title">The <span class="gradient-text">Soumo's Classroom</span> Advantage</h2>
+      <p class="section-sub mx-auto">We don't just teach; we craft professionals. Experience a learning environment designed for absolute success.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal reveal-delay-1">
+      <div class="why-card card-hover"><div class="why-icon" style="background: rgba(99, 102, 241, 0.1); color: #818cf8;"><i class="fas fa-chalkboard-teacher"></i></div><h3>Expert Mentorship</h3><p>Learn directly from an industry expert with 2+ years of real-world experience. Get personalized guidance and doubt-clearing support.</p></div>
+      <div class="why-card card-hover"><div class="why-icon" style="background: rgba(34, 211, 238, 0.1); color: #22d3ee;"><i class="fas fa-laptop-code"></i></div><h3>Project-Based Learning</h3><p>Work on real-world industry projects. Build a professional portfolio that makes you stand out to employers and clients.</p></div>
+      <div class="why-card card-hover"><div class="why-icon" style="background: rgba(236, 72, 153, 0.1); color: #f472b6;"><i class="fas fa-book-open"></i></div><h3>Premium Resources</h3><p>Get access to high-quality study materials, cheat sheets, and practical exercises. Learn at your own pace with lifetime access.</p></div>
+      <div class="why-card card-hover"><div class="why-icon" style="background: rgba(245, 158, 11, 0.1); color: #fbbf24;"><i class="fas fa-headset"></i></div><h3>Lifetime Support</h3><p>Join a community of learners. Get lifetime support even after course completion. We are invested in your growth.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="courses">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-graduation-cap"></i> Our Courses</div>
+      <h2 class="section-title">Explore Our <span class="gradient-text">Premium Courses</span></h2>
+      <p class="section-sub mx-auto">Each course comes with comprehensive study materials, hands-on exercises, and expert guidance.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-2 mb-10 reveal">
+      <button class="course-filter active" data-filter="all">All Courses</button>
+      <button class="course-filter" data-filter="office">Office Apps</button>
+      <button class="course-filter" data-filter="web">Web Development</button>
+      <button class="course-filter" data-filter="programming">Programming</button>
+      <button class="course-filter" data-filter="accounting">Accounting</button>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="coursesGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="testimonials">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-comment-dots"></i> Testimonials</div>
+      <h2 class="section-title">What Our <span class="gradient-text">Students Say</span></h2>
+      <p class="section-sub mx-auto">Real stories from real students who transformed their careers with Soumo's Classroom.</p>
+    </div>
+    
+    <div class="testimonial-slider reveal reveal-delay-1">
+      <div class="testimonial-track" id="testimonialTrack">
+        <div class="testimonial-card card-hover"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Learning HTML from Soumodip sir at Soumo's Classroom has been a wonderful experience. The practical approach and real-world examples made learning so engaging!"</p><div class="student-info"><img src="https://placehold.co/60x60/6366f1/ffffff?text=A" alt="Student"><div><h4>Animesh Roy</h4><p>Senior Student</p></div></div></div>
+        <div class="testimonial-card card-hover"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Soumodip sir makes learning Tally simple, practical, and interesting, helping me gain the confidence to apply my accounting skills in real-world situations!"</p><div class="student-info"><img src="https://placehold.co/60x60/22d3ee/ffffff?text=S" alt="Student"><div><h4>Soumi Das</h4><p>Junior Student</p></div></div></div>
+        <div class="testimonial-card card-hover"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"The Excel course covered everything from basics to advanced macros. Soumo sir explains complex formulas in such a simple way. Worth every penny!"</p><div class="student-info"><img src="https://placehold.co/60x60/ec4899/ffffff?text=R" alt="Student"><div><h4>Rohit Kumar Guin</h4><p>Senior Student</p></div></div></div>
+        <div class="testimonial-card card-hover"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Learning C Programming from Soumodip sir at Soumo's Classroom has been an amazing experience, as his simple explanations and practical teaching methods make coding easy and enjoyable!"</p><div class="student-info"><img src="https://placehold.co/60x60/f59e0b/ffffff?text=S" alt="Student"><div><h4>Soumyajit Dey</h4><p>Junior Student</p></div></div></div>
+      </div>
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="registration">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-user-plus"></i> Enrollment</div>
+      <h2 class="section-title">Begin Your <span class="gradient-text">Learning Journey</span></h2>
+      <p class="section-sub mx-auto">Complete the 3-step registration process to secure your spot. Pay securely via PhonePe.</p>
+    </div>
+    <div class="max-w-3xl mx-auto reveal">
+      <div class="reg-container">
+        <div class="reg-steps"><div class="reg-steps-progress" id="regProgress" style="width: 0%;"></div><div class="reg-step active" data-step="1"><div class="reg-step-circle">1</div><div class="reg-step-label">Personal Info</div></div><div class="reg-step" data-step="2"><div class="reg-step-circle">2</div><div class="reg-step-label">Course Selection</div></div><div class="reg-step" data-step="3"><div class="reg-step-circle">3</div><div class="reg-step-label">Payment</div></div></div>
+        
+        <div class="form-wrapper">
+          <div class="reg-step-content active" id="step1">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="reg-form-group"><label>Full Name <span class="required">*</span></label><input type="text" class="reg-input" id="regName" placeholder="John Doe"></div>
+              <div class="reg-form-group"><label>Email Address <span class="required">*</span></label><input type="email" class="reg-input" id="regEmail" placeholder="john@example.com"></div>
+              <div class="reg-form-group"><label>Phone Number <span class="required">*</span></label><input type="tel" class="reg-input" id="regPhone" placeholder="+91 98765 43210"></div>
+              <div class="reg-form-group"><label>Age</label><input type="number" class="reg-input" id="regAge" placeholder="25" min="10" max="100"></div>
+              <div class="reg-form-group"><label>Qualification</label><select class="reg-select" id="regQualification"><option value="">Select Qualification</option><option value="high-school">High School</option><option value="higher-secondary">Higher Secondary</option><option value="graduate">Graduate</option><option value="post-graduate">Post Graduate</option><option value="other">Other</option></select></div>
+              <div class="reg-form-group"><label>Preferred Batch Time</label><select class="reg-select" id="regBatch"><option value="">Select Batch</option><option value="morning">Morning (8 AM - 11 AM)</option><option value="afternoon">Afternoon (12 PM - 3 PM)</option><option value="evening">Evening (4 PM - 7 PM)</option><option value="night">Night (8 PM - 10 PM)</option></select></div>
+            </div>
+            <div class="flex justify-end mt-6"><button class="btn-primary" id="step1Next">Continue <i class="fas fa-arrow-right ml-1"></i></button></div>
+          </div>
+          <div class="reg-step-content hidden" id="step2">
+            <div class="reg-form-group"><label>Select Your Course <span class="required">*</span></label><div class="course-select-grid" id="courseSelectGrid"></div></div>
+            <div class="reg-form-group mt-4"><label>Additional Message (Optional)</label><textarea class="reg-textarea" id="regMessage" placeholder="Tell us about your learning goals..."></textarea></div>
+            <div class="flex justify-between mt-6"><button class="btn-outline" id="step2Back"><i class="fas fa-arrow-left mr-1"></i> Back</button><button class="btn-primary" id="step2Next">Continue to Payment <i class="fas fa-arrow-right ml-1"></i></button></div>
+          </div>
+          <div class="reg-step-content hidden" id="step3">
+            <div class="payment-box">
+              <div class="phonepe-badge"><i class="fas fa-mobile-alt"></i> PhonePe Payment</div>
+              <div class="text-sm text-[var(--fg-muted)] mb-1">Registration Fee</div>
+              <div class="payment-amount">₹249</div>
+              <div class="text-sm text-[var(--fg-muted)] mb-4">One-time payment for full course enrollment</div>
+              <div class="payment-qr-wrap"><img src="assets/upi_id.jpeg" alt="Payment QR" width="200" height="200"></div>
+              <div class="payment-upi"><i class="fas fa-mobile-alt"></i> UPI: debika1986dey@oksbi</div>
+              <div class="text-sm text-[var(--fg-muted)] mb-4">Scan the QR code with any UPI app (PhonePe, Google Pay, Paytm) to pay ₹249</div>
+              <div class="reg-form-group text-left mt-6"><label>Transaction ID / UTR Number <span class="required">*</span></label><input type="text" class="reg-input" id="regTransaction" placeholder="Enter transaction reference number"></div>
+              <div class="flex items-start gap-2 text-left mb-6 mt-4"><input type="checkbox" id="regTerms" class="mt-1"><label for="regTerms" class="text-xs text-[var(--fg-muted)] cursor-pointer">I confirm that I have completed the payment of ₹249 and the transaction ID provided is correct. I agree to the terms and conditions of Soumo's Classroom.</label></div>
+              <div class="flex justify-between"><button class="btn-outline" id="step3Back"><i class="fas fa-arrow-left mr-1"></i> Back</button><button class="btn-primary" id="submitRegistration"><i class="fas fa-check"></i> Complete Registration</button></div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-question-circle"></i> FAQ</div>
+      <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+      <p class="section-sub mx-auto">Got questions? We've got answers. If you can't find what you're looking for, feel free to reach out!</p>
+    </div>
+    <div class="max-w-3xl mx-auto reveal reveal-delay-1 space-y-4">
+      <div class="faq-item"><button class="faq-question">Are the classes live or pre-recorded? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>We offer live interactive classes so you can ask doubts in real-time. However, you also get access to recorded videos of the classes for revision.</p></div></div>
+      <div class="faq-item"><button class="faq-question">Will I get a certificate after course completion? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>No! You will not receive any verifiable certificate even after successfully completing the course and the final project.</p></div></div>
+      <div class="faq-item"><button class="faq-question">What if I miss a class? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>No worries! If you contact Soumodip directly, you might get the opportunity to make up for the class you missed.</p></div></div>
+      <div class="faq-item"><button class="faq-question">How do I access the study materials? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Once registered, you will get direct access to all premium study materials, cheat sheets, and resources related to your course for a nominal fee.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="section-tag" style="display: inline-flex;"><i class="fas fa-envelope"></i> Get In Touch</div>
+      <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+      <p class="section-sub mx-auto">Have questions? We're here to help. Reach out to us through any of these channels.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-8 reveal">
+      <div class="space-y-4">
+        <div class="contact-info-card card-hover"><div class="contact-info-icon"><i class="fas fa-envelope"></i></div><div><h4>Email Us</h4><p>soumosclassroom@gmail.com</p></div></div>
+        <div class="contact-info-card card-hover"><div class="contact-info-icon"><i class="fas fa-phone"></i></div><div><h4>Call Us</h4><p>+91 89186 56235</p></div></div>
+        <div class="contact-info-card card-hover"><div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div><div><h4>Visit Us</h4><p>Dhaniakhali, West Bengal, India - 700001</p></div></div>
+        <div class="contact-info-card card-hover"><div class="contact-info-icon"><i class="fab fa-whatsapp"></i></div><div><h4>WhatsApp Support</h4><p>+91 89186 56235 (08 AM - 10 PM)</p></div></div>
+        <div class="flex gap-3 pt-4"><a href="https://www.facebook.com/profile.php?id=61594860584438&mibextid=ZbWKwL" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/soumosclassroomofficial?rpxt=MXR2NHJvOTlyZ3plYg==" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@soumosclassroom" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a></div>
+      </div>
+      <div class="reg-container"><form id="contactForm"><div class="grid sm:grid-cols-2 gap-4"><div class="reg-form-group"><label>Your Name <span class="required">*</span></label><input type="text" class="reg-input" id="contactName" placeholder="John Doe"></div><div class="reg-form-group"><label>Email <span class="required">*</span></label><input type="email" class="reg-input" id="contactEmail" placeholder="john@example.com"></div></div><div class="reg-form-group"><label>Subject <span class="required">*</span></label><input type="text" class="reg-input" id="contactSubject" placeholder="How can we help?"></div><div class="reg-form-group"><label>Message <span class="required">*</span></label><textarea class="reg-textarea" id="contactMessage" placeholder="Write your message here..."></textarea></div><button type="submit" class="btn-primary w-full justify-center"><i class="fas fa-paper-plane"></i> Send Message</button></form></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-pattern"></div>
+  <div class="container mx-auto px-4 sm:px-6 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div><div class="flex items-center gap-3 mb-4"><img src="assets/logo.png" alt="Soumo's Classroom Logo" class="w-12 h-12 object-contain" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%236366f1%22/><stop offset=%221%22 stop-color=%22%23ec4899%22/></linearGradient></defs><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22url(%23g)%22/><text x=%2250%22 y=%2270%22 font-family=%22Georgia,serif%22 font-size=%2248%22 font-weight=%22bold%22 text-anchor=%22middle%22 fill=%22white%22>SC</text></svg>';"><div class="footer-brand-text">Soumo's <span>Classroom</span></div></div><p class="footer-desc">Empowering learners with quality technical education. Master in-demand skills with expert guidance and hands-on projects.</p><div class="footer-social"><a href="https://www.facebook.com/profile.php?id=61594860584438&mibextid=ZbWKwL" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/soumosclassroomofficial?rpxt=MXR2NHJvOTlyZ3plYg==" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@soumosclassroom" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a></div></div>
+      <div><h4 class="footer-heading">Quick Links</h4><a href="#home" class="footer-link">Home</a><a href="#about" class="footer-link">About Us</a><a href="#courses" class="footer-link">Courses</a><a href="#registration" class="footer-link">Registration</a><a href="#contact" class="footer-link">Contact</a></div>
+      <div><h4 class="footer-heading">Popular Courses</h4><a class="footer-link" data-course="python">Python Programming</a><a class="footer-link" data-course="javascript">JavaScript</a><a class="footer-link" data-course="ms-excel">Microsoft Excel</a><a class="footer-link" data-course="tally">Tally Prime with GST</a><a class="footer-link" data-course="html">HTML & CSS</a></div>
+      <div><h4 class="footer-heading">Newsletter</h4><p class="text-[var(--fg-muted)] text-sm mb-4">Subscribe to get updates on new courses and offers.</p><div class="footer-newsletter"><input type="email" placeholder="Your email" id="newsletterEmail"><button id="newsletterBtn"><i class="fas fa-paper-plane"></i></button></div><div class="mt-6 space-y-2 text-sm text-[var(--fg-muted)]"><div class="flex items-center gap-2"><i class="fas fa-envelope text-[var(--accent)]"></i> soumosclassroom@gmail.com</div><div class="flex items-center gap-2"><i class="fas fa-phone text-[var(--accent)]"></i> +91 89186 56235</div></div></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Soumo's Classroom. All rights reserved. | Designed with <i class="fas fa-heart text-[var(--accent)]"></i> for learners</p></div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+<button class="ai-toggle-btn" id="aiToggleBtn" aria-label="Open AI Assistant"><i class="fas fa-robot"></i><span class="ai-btn-pulse"></span></button>
+<div class="ai-chat-widget" id="aiChatWidget"><div class="ai-chat-header"><div class="ai-header-info"><div class="ai-avatar"><i class="fas fa-robot"></i></div><div><h4>Soumo's AI Assistant</h4><span class="ai-status"><span class="ai-status-dot"></span> Online</span></div></div><button class="ai-close-btn" id="aiCloseBtn"><i class="fas fa-times"></i></button></div><div class="ai-chat-body" id="aiChatBody"><div class="message bot"><div class="message-content">Hello! 👋 I am Soumo's AI Assistant. How can I help you with your learning journey today?</div></div></div><div class="ai-chat-footer"><input type="text" id="aiInput" placeholder="Type your message..." autocomplete="off"><button id="aiSendBtn" aria-label="Send"><i class="fas fa-paper-plane"></i></button></div></div>
+
+<!-- Modals -->
+<div class="modal" id="successModal"><div class="modal-overlay" data-close></div><div class="modal-content text-center"><button class="modal-close" data-close><i class="fas fa-times"></i></button><div class="modal-icon" style="background: linear-gradient(135deg, var(--success), var(--primary));"><i class="fas fa-check"></i></div><h3 class="modal-title" id="successTitle">Success!</h3><p class="modal-sub" id="successMsg">Your registration has been submitted successfully.</p><button class="btn-primary w-full justify-center" data-close>Continue</button></div></div>
+
+<!-- Syllabus Modal -->
+<div class="modal" id="syllabusModal">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-content" style="max-width: 700px;">
+    <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+    <h3 class="modal-title" id="syllabusTitle">Course Syllabus</h3>
+    <div id="syllabusContent" class="text-left space-y-3 mt-4"></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="script.js"></script>
+</body>
+</html>
